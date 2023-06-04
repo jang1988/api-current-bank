@@ -1,28 +1,22 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 const app = express();
 
 app.use(express.json());
 
+mongoose
+    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
+    .then(() => console.log('DB OK'))
+    .catch((err) => console.log('BD error', err));
+
 app.get('/', (req, res) => {
     res.send('hello');
 });
 
-app.post('/auth/login', (req, res) => {
-    console.log('req: ', req.body)
-    const token = jwt.sign(
-        {
-            email: req.body.email,
-            password: req.body.password,
-        },
-        'secretKey',
-    );
-
-    res.json({
-        token,
-        succes: true,
-    });
+app.post('/auth/register', (req, res) => {
+   
 });
 
 app.listen(4444, (err) => {
