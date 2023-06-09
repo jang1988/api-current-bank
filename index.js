@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { validationResult } from 'express-validator';
 import { registerValidation } from './validations.js';
 import UserModel from './models/User.js';
+import checkAuth from './utils/checkAuth.js';
 
 const app = express();
 
@@ -31,7 +32,7 @@ app.post('/auth/login', async (req, res) => {
             });
         }
 
-        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash)
+        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
 
         if (!isValidPass) {
             return res.status(400).json({
@@ -47,13 +48,12 @@ app.post('/auth/login', async (req, res) => {
             {
                 expiresIn: '30d',
             },
-        )
+        );
 
         res.json({
             ...user._doc,
             token,
         });
-
     } catch (error) {
         console.log('error: ', error);
         res.status(500).json({
@@ -100,6 +100,19 @@ app.post('/auth/register', registerValidation, async (req, res) => {
         console.log('error: ', error);
         res.status(500).json({
             message: 'Не удалось зарегистрироваться',
+        });
+    }
+});
+
+app.get('/auth/me', checkAuth, (req, res) => {
+    try {
+        res.json({
+            success: true,
+        });
+    } catch (error) {
+        console.log('error: ', error);
+        res.status(500).json({
+            message: 'Не удалось',
         });
     }
 });
