@@ -25,11 +25,15 @@ app.post('/auth/login', loginValidation, login);
 app.post('/auth/register', registerValidation, register);
 app.get('/auth/me', checkAuth, getMe);
 
-app.post('/banks',checkAuth, bankCreateValidation, BankController.create)
+app.post('/banks', checkAuth, bankCreateValidation, BankController.create);
+app.get('/banks', BankController.getAll);
+app.get('/banks/:id', BankController.getOne);
+app.delete('/banks/:id', checkAuth, BankController.remove);
+app.patch('/banks/:id', checkAuth, BankController.update);
 
 app.listen(4444, (err) => {
     if (err) {
-        return console.log(err)
+        return console.log(err);
     }
 
     console.log('Server OK');
