@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import { bankCreateValidation, loginValidation, registerValidation } from './validations.js';
 import checkAuth from './utils/checkAuth.js';
+import handleValidationErrors from './utils/handleValidationErrors.js';
 
 import { register, login, getMe } from './controllers/UserController.js';
 import * as BankController from './controllers/BankController.js';
@@ -40,15 +41,15 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     });
   });
 
-app.post('/auth/login', loginValidation, login);
-app.post('/auth/register', registerValidation, register);
+app.post('/auth/login', loginValidation, handleValidationErrors, login);
+app.post('/auth/register', registerValidation, handleValidationErrors, register);
 app.get('/auth/me', checkAuth, getMe);
 
-app.post('/banks', checkAuth, bankCreateValidation, BankController.create);
+app.post('/banks', checkAuth, bankCreateValidation, handleValidationErrors, BankController.create);
 app.get('/banks', BankController.getAll);
 app.get('/banks/:id', BankController.getOne);
 app.delete('/banks/:id', checkAuth, BankController.remove);
-app.patch('/banks/:id', checkAuth, BankController.update);
+app.patch('/banks/:id', checkAuth, handleValidationErrors, BankController.update);
 
 app.listen(4444, (err) => {
     if (err) {

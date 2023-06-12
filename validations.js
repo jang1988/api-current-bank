@@ -13,8 +13,8 @@ export const registerValidation = [
 ];
 
 export const bankCreateValidation = [
-  body('title', 'Введите заголовок').isLength({ min: 5 }).isString(),
-  body('text', 'Введите текст').isLength({ min: 5 }).isString(),
+  body('title', 'Введите заголовок').isLength({ min: 3 }).isString(),
+  body('text', 'Введите текст').isLength({ min: 3 }).isString(),
   body('tags', 'Неверный формат тэгов').optional().isString(),
   body('imageUrl', 'Неверная ссылка на изображение').optional().isString(),
 ];
