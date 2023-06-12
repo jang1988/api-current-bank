@@ -1,9 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { registerValidation } from './validations.js';
+import { bankCreateValidation, loginValidation, registerValidation } from './validations.js';
 import checkAuth from './utils/checkAuth.js';
 
 import { register, login, getMe } from './controllers/UserController.js';
+import * as BankController from './controllers/BankController.js';
 
 const app = express();
 
@@ -20,15 +21,15 @@ app.get('/', (req, res) => {
     res.send('hello');
 });
 
-app.post('/auth/login', login);
-
+app.post('/auth/login', loginValidation, login);
 app.post('/auth/register', registerValidation, register);
-
 app.get('/auth/me', checkAuth, getMe);
+
+app.post('/banks',checkAuth, bankCreateValidation, BankController.create)
 
 app.listen(4444, (err) => {
     if (err) {
-        return console.log(err);
+        return console.log(err)
     }
 
     console.log('Server OK');

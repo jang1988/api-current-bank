@@ -12,9 +12,9 @@ export const registerValidation = [
   body('avatarUrl', 'Неверная ссылка на аватарку').optional().isURL(),
 ];
 
-export const postCreateValidation = [
-  body('title', 'Введите заголовок статьи').isLength({ min: 3 }).isString(),
-  body('text', 'Введите текст статьи').isLength({ min: 3 }).isString(),
+export const bankCreateValidation = [
+  body('title', 'Введите заголовок').isLength({ min: 5 }).isString(),
+  body('text', 'Введите текст').isLength({ min: 5 }).isString(),
   body('tags', 'Неверный формат тэгов').optional().isString(),
   body('imageUrl', 'Неверная ссылка на изображение').optional().isString(),
 ];
