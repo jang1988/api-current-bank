@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
+
 import { bankCreateValidation, loginValidation, registerValidation } from './validations.js';
+
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
