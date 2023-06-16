@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import cors from 'cors';
 
 import { bankCreateValidation, loginValidation, registerValidation } from './validations.js';
 
@@ -12,6 +13,7 @@ import * as BankController from './controllers/BankController.js';
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
+app.use(cors())
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
