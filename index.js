@@ -55,6 +55,8 @@ app.get('/banks/:id', BankController.getOne);
 app.delete('/banks/:id', checkAuth, BankController.remove);
 app.patch('/banks/:id', checkAuth, handleValidationErrors, BankController.update);
 
+app.get('/tags', BankController.getLastTags);
+
 app.listen(4444, (err) => {
     if (err) {
         return console.log(err);
