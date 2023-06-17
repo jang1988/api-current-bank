@@ -11,6 +11,10 @@ const BankSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        volume: {
+            type: String,
+            required: true,
+        },
         tags: {
             type: Array,
             default: [],

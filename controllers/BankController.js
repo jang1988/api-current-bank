@@ -5,6 +5,7 @@ export const create = async (req, res) => {
         const doc = new BankModel({
             title: req.body.title,
             text: req.body.text,
+            volume: req.body.volume,
             imageUrl: req.body.imageUrl,
             tags: req.body.tags,
             user: req.userId,

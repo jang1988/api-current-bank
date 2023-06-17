@@ -13,7 +13,7 @@ import * as BankController from './controllers/BankController.js';
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
-app.use(cors())
+app.use(cors());
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
@@ -41,9 +41,9 @@ app.get('/', (req, res) => {
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
-      url: `/uploads/${req.file.originalname}`,
+        url: `/uploads/${req.file.originalname}`,
     });
-  });
+});
 
 app.post('/auth/login', loginValidation, handleValidationErrors, login);
 app.post('/auth/register', registerValidation, handleValidationErrors, register);
