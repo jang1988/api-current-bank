@@ -51,6 +51,7 @@ export const getOne = async (req, res) => {
                 returnDocument: 'after',
             },
         )
+            .populate('user')
             .then((doc) => {
                 if (!doc) {
                     return res.status(404).json({
@@ -87,7 +88,7 @@ export const remove = async (req, res) => {
                     });
                 }
                 res.json({
-                    mssage: true,
+                    message: true,
                 });
             })
             .catch((err) => {
