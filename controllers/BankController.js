@@ -9,6 +9,7 @@ export const create = async (req, res) => {
             imageUrl: req.body.imageUrl,
             tags: req.body.tags.split(','),
             user: req.userId,
+            count: 0,
         });
 
         const bank = await doc.save();
@@ -133,23 +134,32 @@ export const update = async (req, res) => {
     }
 };
 
-export const getLastTags = async (req, res) => {
+const getBankTags = (banks) => {
+    const tagsSet = new Set();
+  
+    banks.forEach((bank) => {
+      bank.tags.forEach((tag) => {
+        tagsSet.add(tag);
+      });
+    });
+  
+    const tags = Array.from(tagsSet).slice(0, 5);
+    return tags;
+  };
+  
+  export const getLastTags = async (req, res) => {
     try {
-        const banks = await BankModel.find().limit(5).exec();
-
-        const tags = banks
-            .map((obj) => obj.tags)
-            .flat()
-            .slice(0, 5);
-
-        res.json(tags);
+      const { limit = 5 } = req.query;
+      const banks = await BankModel.find().limit(Number(limit)).exec();
+      const tags = getBankTags(banks);
+      res.json(tags);
     } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Не удалось получить тэги',
-        });
+      console.log(err);
+      res.status(500).json({
+        message: 'Не удалось получить тэги',
+      });
     }
-};
+  };
 
 export const getBanksByTags = async (req, res) => {
     try {
@@ -163,6 +173,33 @@ export const getBanksByTags = async (req, res) => {
         console.log(err);
         res.status(500).json({
             message: 'Не удалось получить банки по тегам',
+        });
+    }
+};
+
+export const updateCount = async (req, res) => {
+    try {
+        const bankId = req.params.id;
+
+        const countValue = req.body.count; // Получаем значение count из запроса
+
+        const updatedBank = await BankModel.findByIdAndUpdate(
+            bankId,
+            { $inc: { count: countValue } }, // Используем оператор $inc для обновления значения count
+            { new: true }
+        );
+
+        if (!updatedBank) {
+            return res.status(404).json({
+                message: 'Банка не найдена',
+            });
+        }
+
+        res.json(updatedBank);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: 'Не удалось обновить банку',
         });
     }
 };

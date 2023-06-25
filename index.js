@@ -58,6 +58,8 @@ app.patch('/banks/:id', checkAuth, handleValidationErrors, BankController.update
 app.get('/tags', BankController.getLastTags);
 app.get('/banks/tags', BankController.getBanksByTags);
 
+app.put('/banks/:id/count', BankController.updateCount);
+
 app.listen(4444, (err) => {
     if (err) {
         return console.log(err);
