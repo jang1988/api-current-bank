@@ -56,6 +56,7 @@ app.delete('/banks/:id', checkAuth, BankController.remove);
 app.patch('/banks/:id', checkAuth, handleValidationErrors, BankController.update);
 
 app.get('/tags', BankController.getLastTags);
+app.get('/banks/tags', BankController.getBanksByTags);
 
 app.listen(4444, (err) => {
     if (err) {
