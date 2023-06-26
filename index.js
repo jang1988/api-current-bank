@@ -60,7 +60,7 @@ app.get('/banks/tags', BankController.getBanksByTags);
 
 app.put('/banks/:id/count', BankController.updateCount);
 
-app.listen(process.env.PORT || 4444, (err) => {
+app.listen(process.env.PORT || 80, (err) => {
     if (err) {
         return console.log(err);
     }
