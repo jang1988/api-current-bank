@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors';
-
+import dotenv from 'dotenv';
+dotenv.config();
 import { bankCreateValidation, loginValidation, registerValidation } from './validations.js';
 
 import checkAuth from './utils/checkAuth.js';
@@ -10,6 +11,7 @@ import handleValidationErrors from './utils/handleValidationErrors.js';
 
 import { register, login, getMe } from './controllers/UserController.js';
 import * as BankController from './controllers/BankController.js';
+
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
