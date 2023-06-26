@@ -29,7 +29,7 @@ const upload = multer({ storage });
 app.use(express.json());
 
 mongoose
-    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
+    .connect(process.env.MONGODB_URI)
     .then(() => console.log('DB OK'))
     .catch((err) => console.log('BD error', err));
 
@@ -58,7 +58,7 @@ app.get('/banks/tags', BankController.getBanksByTags);
 
 app.put('/banks/:id/count', BankController.updateCount);
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         return console.log(err);
     }
