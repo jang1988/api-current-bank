@@ -31,7 +31,7 @@ const upload = multer({ storage });
 app.use(express.json());
 
 mongoose
-    .connect(process.env.MONGODB_URI)
+    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
     .then(() => console.log('DB OK'))
     .catch((err) => console.log('BD error', err));
 
