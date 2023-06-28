@@ -31,20 +31,10 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
 });
-
 const upload = multer({ storage });
 
-const corsOptions = {
-    origin: 'https://current-bank-front.vercel.app',
-};
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://current-bank-front.vercel.app');
-    next();
-  });
-
-app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cors());
 app.use('/uploads', express.static('uploads'))
 
 
