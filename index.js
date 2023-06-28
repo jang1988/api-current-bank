@@ -1,5 +1,5 @@
 import express from 'express';
-import fs from '@cyclic.sh/s3fs';
+import fs from 'fs';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors';
