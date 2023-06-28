@@ -11,6 +11,7 @@
   "author": "Petro",
   "license": "ISC",
   "dependencies": {
+    "@cyclic.sh/s3fs": "^1.2.9",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -21,5 +22,8 @@
     "mongoose": "^7.2.2",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
   }
 }
