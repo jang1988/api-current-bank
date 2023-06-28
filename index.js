@@ -16,7 +16,10 @@ import * as BankController from './controllers/BankController.js';
 
 const app = express();
 app.use('/uploads', express.static('uploads'))
-app.use(cors());
+const corsOptions = {
+    origin: 'https://current-bank-front.vercel.app',
+  };
+app.use(cors(corsOptions));
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
