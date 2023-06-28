@@ -23,28 +23,28 @@ app.get('/', (req, res) => {
 });
 
 const app = express();
-app.use('/uploads', express.static('uploads'))
-const corsOptions = {
-    origin: 'https://current-bank-front.vercel.app',
-  };
-app.use(cors(corsOptions));
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
-      if (!fs.existsSync('uploads')) {
-        fs.mkdirSync('uploads');
-      }
-      cb(null, 'uploads');
+        if (!fs.existsSync('uploads')) {
+            fs.mkdirSync('uploads');
+        }
+        cb(null, 'uploads');
     },
     filename: (_, file, cb) => {
-      cb(null, file.originalname);
+        cb(null, file.originalname);
     },
-  });
+});
 
 const upload = multer({ storage });
 
-app.use(express.json());
+const corsOptions = {
+    origin: 'https://current-bank-front.vercel.app',
+};
 
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use('/uploads', express.static('uploads'))
 
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
