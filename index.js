@@ -18,8 +18,6 @@ mongoose
     .then(() => console.log('DB OK'))
     .catch((err) => console.log('BD error', err));
 
-
-
 const app = express();
 
 const storage = multer.diskStorage({
