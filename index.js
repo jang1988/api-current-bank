@@ -36,8 +36,8 @@ mongoose
     
     const upload = multer({ storage });
     
-    app.use(cors());
     app.use(express.json());
+    app.use(cors());
     app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {
