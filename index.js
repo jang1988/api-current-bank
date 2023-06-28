@@ -18,9 +18,7 @@ mongoose
     .then(() => console.log('DB OK'))
     .catch((err) => console.log('BD error', err));
 
-app.get('/', (req, res) => {
-    res.send('hello');
-});
+
 
 const app = express();
 
@@ -51,6 +49,10 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
         url: `/uploads/${req.file.originalname}`,
     });
+});
+
+app.get('/', (req, res) => {
+    res.send('hello');
 });
 
 app.post('/auth/login', loginValidation, handleValidationErrors, login);
