@@ -34,6 +34,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Разрешить доступ с любых доменов
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+  
 app.use(cors());
 app.use('/uploads', express.static('uploads'))
 
