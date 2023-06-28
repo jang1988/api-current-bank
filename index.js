@@ -13,6 +13,14 @@ import handleValidationErrors from './utils/handleValidationErrors.js';
 import { register, login, getMe } from './controllers/UserController.js';
 import * as BankController from './controllers/BankController.js';
 
+mongoose
+    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
+    .then(() => console.log('DB OK'))
+    .catch((err) => console.log('BD error', err));
+
+app.get('/', (req, res) => {
+    res.send('hello');
+});
 
 const app = express();
 app.use('/uploads', express.static('uploads'))
@@ -37,14 +45,7 @@ const upload = multer({ storage });
 
 app.use(express.json());
 
-mongoose
-    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
-    .then(() => console.log('DB OK'))
-    .catch((err) => console.log('BD error', err));
 
-app.get('/', (req, res) => {
-    res.send('hello');
-});
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
