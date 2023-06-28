@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import cors from 'cors';
@@ -14,17 +15,20 @@ import * as BankController from './controllers/BankController.js';
 
 
 const app = express();
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'))
 app.use(cors());
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
-        cb(null, 'uploads');
+      if (!fs.existsSync('uploads')) {
+        fs.mkdirSync('uploads');
+      }
+      cb(null, 'uploads');
     },
     filename: (_, file, cb) => {
-        cb(null, file.originalname);
+      cb(null, file.originalname);
     },
-});
+  });
 
 const upload = multer({ storage });
 
