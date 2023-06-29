@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import UserModel from '../models/User.js';
 
-
 export const register = async (req, res) => {
     try {
         const password = req.body.password;
@@ -38,11 +37,10 @@ export const register = async (req, res) => {
             message: 'Не удалось зарегистрироваться',
         });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
-
         const user = await UserModel.findOne({ email: req.body.email });
 
         if (!user) {
@@ -79,17 +77,16 @@ export const login = async (req, res) => {
             message: 'Не удалось авторизоваться',
         });
     }
-}
+};
 
 export const getMe = async (req, res) => {
     try {
+        const user = await UserModel.findById(req.userId);
 
-        const user = await UserModel.findById(req.userId)
-
-        if (!user) { 
+        if (!user) {
             return res.status(404).json({
-                message: 'Пользователь не найден'
-            })
+                message: 'Пользователь не найден',
+            });
         }
 
         res.json(user._doc);
@@ -99,4 +96,4 @@ export const getMe = async (req, res) => {
             message: 'Нет доступа',
         });
     }
-}
+};
