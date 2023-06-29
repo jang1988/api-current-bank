@@ -11,8 +11,6 @@
   "author": "Petro",
   "license": "ISC",
   "dependencies": {
-    "@cyclic.sh/s3fs": "^1.2.9",
-    "aws-sdk": "^2.1407.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
