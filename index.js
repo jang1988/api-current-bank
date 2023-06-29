@@ -14,7 +14,7 @@ import { register, login, getMe } from './controllers/UserController.js';
 import * as BankController from './controllers/BankController.js';
 
 mongoose
-    .connect('mongodb+srv://admin:admin@cluster0.ielym5z.mongodb.net/current-bank?retryWrites=true&w=majority')
+    .connect(process.env.MONGODB_URL)
     .then(() => console.log('DB OK'))
     .catch((err) => console.log('DB error', err));
 
@@ -37,9 +37,6 @@ const upload = multer({ storage });
 app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
-
-app.options('/upload', cors());
-app.options('/uploads', cors());
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
     res.json({
