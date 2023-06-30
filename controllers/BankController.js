@@ -149,7 +149,7 @@ const getBankTags = (banks) => {
   
   export const getLastTags = async (req, res) => {
     try {
-      const { limit = 5 } = req.query;
+      const { limit = 10 } = req.query;
       const banks = await BankModel.find().limit(Number(limit)).exec();
       const tags = getBankTags(banks);
       res.json(tags);
