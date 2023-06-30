@@ -185,7 +185,7 @@ export const updateCount = async (req, res) => {
 
         const updatedBank = await BankModel.findByIdAndUpdate(
             bankId,
-            { $inc: { count: countValue } }, // Используем оператор $inc для обновления значения count
+            { count: countValue }, // Заменяем значение count на переданное значение
             { new: true }
         );
 
