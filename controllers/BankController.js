@@ -143,7 +143,7 @@ const getBankTags = (banks) => {
       });
     });
   
-    const tags = Array.from(tagsSet).slice(0, 5);
+    const tags = Array.from(tagsSet);
     return tags;
   };
   
